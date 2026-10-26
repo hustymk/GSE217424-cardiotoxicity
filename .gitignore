@@ -1,0 +1,9 @@
+﻿# 数据与中间缓存不入库
+data/
+cache/
+*.Rproj
+.Rhistory
+.RData
+.Renviron
+.DS_Store
+Thumbs.db

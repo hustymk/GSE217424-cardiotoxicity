@@ -1,0 +1,5 @@
+metric	value
+n_leaves	266
+n_drugs	54
+adjacent_same_drug	0.15471698113207547
+expected_random	0.018518518518518517
