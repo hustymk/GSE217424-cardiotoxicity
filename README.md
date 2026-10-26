@@ -25,7 +25,10 @@ Nature Communications 2024; 15:7968（DOI 10.1038/s41467-024-52145-4）的五张
 python R/01_download.py
 
 # 2) 把作者数据包里的完整矩阵放到 data/suppl/DEG_matrix_fullgenes.txt
-#    获取方式见上一级目录的《数据说明》
+#    GEO 计数矩阵：https://ftp.ncbi.nlm.nih.gov/geo/series/GSE217nnn/GSE217421/suppl/
+#    论文补充材料：https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-52145-4/MediaObjects/41467_2024_52145_MOESM4_ESM.zip
+#    完整矩阵：https://iyengarlab.org/dtoxs/files/LINCS_DToxS_SVD.zip
+#    路径 Results_to_run_R_SVD1to17_in_isolation/1_DEGs/SVD_DEGenes_iPSCdCMs_P0_Signed_minus_log10pvalue_topall.txt
 
 # 3) 一键出图
 Rscript -e 'source("run_all.R")'
