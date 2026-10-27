@@ -19,12 +19,27 @@ hc  <- stats::hclust(stats::as.dist((1 - cm) / 2), method = "average")   # 作�
 ord <- hc$order
 n <- length(ord)
 
-## ---------- 54 种药各一个颜色 ----------
+## ---------- 药物颜色：照作者 SVD_colors.R 的手工配色 ----------
+## 作者按机制成组指定颜色（蒽环类紫系、心血管药蓝系、TKI 绿橙系），
+## 文件在 ref/github/SVD_colors.R；缺失的药退回灰色
 drugs <- sort(unique(meta$drug))
-set.seed(7)
-pal <- grDevices::rainbow(length(drugs), s = 0.85, v = 0.92)
-names(pal) <- drugs
+pal <- stats::setNames(rep("grey60", length(drugs)), drugs)
+frac <- "ref/github/SVD_colors.R"
+if (file.exists(frac)) {
+  src <- readLines(frac, warn = FALSE)
+  pair <- paste0('drug_highlight_colors = c\\(drug_highlight_colors,"([^"]+)"\\);',
+                 'drugs_for_highlight_colors = c\\(drugs_for_highlight_colors,"([^"]+)"\\);')
+  hit <- unlist(regmatches(src, gregexpr(pair, src)))
+  if (length(hit)) {
+    pal[sub(pair, "\\2", hit)] <- sub(pair, "\\1", hit)
+  }
+}
 cols <- unname(pal[meta$drug[ord]])
+cols[is.na(cols)] <- "grey60"
+if (any(cols == "grey60")) {
+  warning("有药没在作者色表里，已用灰色：",
+          paste(meta$drug[ord][cols == "grey60"], collapse = ", "))
+}
 
 ## ---------- 画：上树 + 下色带 ----------
 png(file.path(DIR$fig, "fig1b_paper_layout.png"),
